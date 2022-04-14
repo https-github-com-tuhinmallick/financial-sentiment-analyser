@@ -1,27 +1,25 @@
-# # uncomment below lines to use CML
-# name: DVC-project
-
-# on: [push]
-
-# jobs:
-#   run:
-#     runs-on: [ubuntu-latest]
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: iterative/setup-cml@v1
-#       - uses: actions/setup-python@v2
-#         with:
-#           python-version: '3.7'
-
-#       - name: cml-run
-#         env: 
-#           repo_token: ${{ secrets.GITHUB_TOKEN }}
-#         run: |
-#           # Your ML wokflow commands
-#           pip install --upgrade pip
-#           pip install -r requirements.txt
-#           dvc repro -v
-#           echo "# REPORTS" >> report.md
-#           echo "## metrics" >> report.md
-#           cat scores.json >> report.md
-#           cml-send-comment report.md
+name: black-action
+on: [push, pull_request]
+jobs:
+  linter_name:
+    name: runner / black
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check files using the black formatter
+        uses: rickstaa/action-black@v1
+        id: action_black
+        with:
+          black_args: "."
+      - name: Create Pull Request
+        if: steps.action_black.outputs.is_formatted == 'true'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Format Python code with psf/black push"
+          commit-message: ":art: Format Python code with psf/black"
+          body: |
+            There appear to be some python formatting errors in ${{ github.sha }}. This pull request
+            uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
+          base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+          branch: actions/black
