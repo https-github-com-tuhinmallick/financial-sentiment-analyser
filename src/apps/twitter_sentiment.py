@@ -522,40 +522,40 @@ def sentiment():
             use_container_width=True,
         )
 
-    # with st.expander("Show raw data", expanded=False):
+    with st.expander("Show raw data", expanded=False):
 
-    #     st.markdown("## ** Raw data **")
-    #     st.markdown("")
+        st.markdown("## ** Raw data **")
+        st.markdown("")
 
-    #     def draw_count(label, df, init_filter_divider):
-    #         xmax = int(floor(df["count"].max()))
-    #         x = st.slider(label, 0, xmax, xmax // init_filter_divider)
-    #         df = df[df["count"] > x]
-    #         df = df.sort_values(by="count", ascending=False)
-    #         df
-    #         " "
+        def draw_count(label, df, init_filter_divider):
+            xmax = int(floor(df["count"].max()))
+            x = st.slider(label, 0, xmax, xmax // init_filter_divider)
+            df = df[df["count"] > x]
+            df = df.sort_values(by="count", ascending=False)
+            df
+            " "
 
-    #     if st.checkbox("Show term counts"):
-    #         draw_count("Term count cut-off", terms, 5)
+        if st.checkbox("Show term counts"):
+            draw_count("Term count cut-off", terms, 5)
 
-    #     if st.checkbox("Show word counts"):
-    #         draw_count("Word count cut-off", results["word_counts"], 5)
+        if st.checkbox("Show word counts"):
+            draw_count("Word count cut-off", results["word_counts"], 5)
 
-    #     if st.checkbox("Show bigram counts"):
-    #         draw_count("Bigram count cut-off", results["bigram_counts"], 3)
+        if st.checkbox("Show bigram counts"):
+            draw_count("Bigram count cut-off", results["bigram_counts"], 3)
 
-    #     if st.checkbox("Show trigram counts"):
-    #         draw_count("Trigram count cut-off", results["trigram_counts"], 2)
+        if st.checkbox("Show trigram counts"):
+            draw_count("Trigram count cut-off", results["trigram_counts"], 2)
 
-    #     if st.checkbox("Show noun-phrase counts"):
-    #         draw_count("Word count cut-off", results["nounphrase_counts"], 3)
+        if st.checkbox("Show noun-phrase counts"):
+            draw_count("Word count cut-off", results["nounphrase_counts"], 3)
 
-    #     if st.checkbox("Show tweets"):
-    #         for result in paginator(tweets, "curr_tweet_page", 10):
-    #             display_tweet(result)
-    #             "---"
+        if st.checkbox("Show tweets"):
+            for result in paginator(tweets, "curr_tweet_page", 10):
+                display_tweet(result)
+                "---"
 
-    #     if st.checkbox("Show raw tweets"):
-    #         for result in paginator(tweets, "curr_raw_tweet_page", 1):
-    #             display_dict(result.__dict__)
-    #             "---"
+        if st.checkbox("Show raw tweets"):
+            for result in paginator(tweets, "curr_raw_tweet_page", 1):
+                display_dict(result.__dict__)
+                "---"
