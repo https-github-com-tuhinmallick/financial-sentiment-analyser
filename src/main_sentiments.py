@@ -3,9 +3,57 @@ import hydralit_components as hc
 import apps
 import streamlit as st
 
-#Only need to set these here as we are add controls outside of Hydralit, to customise a run Hydralit!
-st.set_page_config(page_title='Secure Hydralit Data Explorer',page_icon="🐙",layout='wide',initial_sidebar_state='auto',)
+import os, sys, logging, pathlib, pickle, traceback, time
+src_location = pathlib.Path(__file__).absolute().parent
+config_location = os.path.join(
+    pathlib.Path(__file__).absolute().parent.parent, "configs"
+)
+artifact_location = os.path.join(
+    pathlib.Path(__file__).absolute().parent.parent, "artifacts"
+)
+if os.path.realpath(src_location) not in sys.path:
+    sys.path.append(os.path.realpath(src_location))
 
+#Only need to set these here as we are add controls outside of Hydralit, to customise a run Hydralit!
+st.set_page_config(page_title='FinSent.AI',page_icon="🐙",layout='wide',initial_sidebar_state='auto',)
+# Markdown to hide streamlit menu and footer
+st.markdown(
+    """ <style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style> """,
+    unsafe_allow_html=True,
+)
+padding = 0
+st.markdown(
+    f""" <style>
+    .reportview-container .main .block-container{{
+        padding-top: {padding}rem;
+        padding-right: {padding}rem;
+        padding-left: {padding}rem;
+        padding-bottom: {padding}rem;
+    }} </style> """,
+    unsafe_allow_html=True,
+)
+st.markdown(
+    """
+        <style>
+               .css-18e3th9 {
+                    padding-top: 0rem;
+                    padding-bottom: 10rem;
+                    padding-left: 5rem;
+                    padding-right: 5rem;
+                }
+               .css-1d391kg {
+                    padding-top: 3.5rem;
+                    padding-right: 1rem;
+                    padding-bottom: 3.5rem;
+                    padding-left: 1rem;
+                }
+        </style>
+        """,
+    unsafe_allow_html=True,
+)
 if __name__ == '__main__':
 
     #---ONLY HERE TO SHOW OPTIONS WITH HYDRALIT - NOT REQUIRED, use Hydralit constructor parameters.
